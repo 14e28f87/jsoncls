@@ -20,14 +20,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var _ = __importStar(require("lodash-es"));
-var Jsonc = /** @class */ (function () {
+var jsonhc = /** @class */ (function () {
     /**
      * コンストラクタ
      *
      *	@oaram		マップするクラスのリスト
      *
      */
-    function Jsonc(classmap) {
+    function jsonhc(classmap) {
         var _this = this;
         if (classmap === void 0) { classmap = {}; }
         this.classmap = {};
@@ -47,7 +47,7 @@ var Jsonc = /** @class */ (function () {
                     var id = value[_this.key];
                     var row = _this.classmap[id];
                     if (row) {
-                        if (Jsonc.isResolver(row)) {
+                        if (jsonhc.isResolver(row)) {
                             // Resolver Object
                             var resolver = row;
                             // match
@@ -67,8 +67,8 @@ var Jsonc = /** @class */ (function () {
                             var persistable = row;
                             var newVars = void 0;
                             newVars = new persistable();
-                            if (_.isFunction(newVars.jsoncUnserialize)) {
-                                newVars.jsoncUnserialize(value);
+                            if (_.isFunction(newVars.jsonhcUnserialize)) {
+                                newVars.jsonhcUnserialize(value);
                             }
                             else {
                             }
@@ -97,7 +97,7 @@ var Jsonc = /** @class */ (function () {
                 var flag = false;
                 for (var _i = 0, _a = Object.entries(_this.classmap); _i < _a.length; _i++) {
                     var _b = _a[_i], id = _b[0], row = _b[1];
-                    if (Jsonc.isResolver(row)) {
+                    if (jsonhc.isResolver(row)) {
                         // Resolver Object
                         var resolver = row;
                         if ((_.isFunction(resolver.test) && resolver.test(value))
@@ -127,9 +127,9 @@ var Jsonc = /** @class */ (function () {
                         var persistable = row;
                         if (value instanceof persistable) {
                             //if( value instanceof persistable ){
-                            if (_.isFunction(value.jsoncSerialize)) {
+                            if (_.isFunction(value.jsonhcSerialize)) {
                                 var newVars = void 0;
-                                newVars = value.jsoncSerialize();
+                                newVars = value.jsonhcSerialize();
                                 newVars[_this.key] = id;
                                 value = newVars;
                             }
@@ -216,9 +216,9 @@ var Jsonc = /** @class */ (function () {
      *	@param	c	調べる対象の値
      *	@return		TResolver であれば true を返し、そうでなければ false を返します。
      */
-    Jsonc.isResolver = function (c) {
+    jsonhc.isResolver = function (c) {
         return _.isPlainObject(c) && (_.isFunction(c.test) || _.isFunction(c.serialize) || _.isFunction(c.unserialize));
     };
-    return Jsonc;
+    return jsonhc;
 }());
-exports.default = Jsonc;
+exports.default = jsonhc;

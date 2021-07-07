@@ -15,7 +15,7 @@ type TClassmap = {
 	[_:string] : any;
 }
 
-export default class Jsonc {
+export default class jsonhc {
 
 	public classmap : TClassmap = {};
 
@@ -52,7 +52,7 @@ export default class Jsonc {
 				let row = this.classmap[ id ];
 				if( row ){
 
-					if( Jsonc.isResolver(row) ){
+					if( jsonhc.isResolver(row) ){
 						// Resolver Object
 						const resolver = row as TResolver;
 
@@ -77,8 +77,8 @@ export default class Jsonc {
 
 						let newVars;
 						newVars = new persistable();
-						if(_.isFunction(newVars.jsoncUnserialize) ){
-							newVars.jsoncUnserialize(value);
+						if(_.isFunction(newVars.jsonhcUnserialize) ){
+							newVars.jsonhcUnserialize(value);
 						}else{
 
 						}
@@ -119,7 +119,7 @@ export default class Jsonc {
 			let flag = false;
 			for(const [id, row] of Object.entries(this.classmap) ){
 
-				if( Jsonc.isResolver(row) ){
+				if( jsonhc.isResolver(row) ){
 					// Resolver Object
 					const resolver = row as TResolver;
 
@@ -151,9 +151,9 @@ export default class Jsonc {
 					if( value instanceof persistable ){
 
 						//if( value instanceof persistable ){
-						if( _.isFunction((value as any).jsoncSerialize) ){
+						if( _.isFunction((value as any).jsonhcSerialize) ){
 							let newVars;
-							newVars = (value as any).jsoncSerialize();
+							newVars = (value as any).jsonhcSerialize();
 							newVars[ this.key ] = id;
 							value = newVars;
 						}

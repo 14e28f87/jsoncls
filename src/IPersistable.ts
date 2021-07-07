@@ -1,7 +1,7 @@
 
 export default interface IPersistable {
 
-	jsoncUnserialize : (data: any)=>void;
-	jsoncSerialize : ()=>any;
+	jsonhcUnserialize : (data: any)=>void;
+	jsonhcSerialize : ()=>any;
 
 }

@@ -1,11 +1,11 @@
-# JSONC : JSON with class
+# JSONHC : JSON that can hold classes
 
 *Date オブジェクト を JSON にエンコードした。だけど、JSON デコードしたら 文字列になっていた*
 
 これは別に不思議なことではありません。JSON にすれば Class に関するデータは消えてしまうからです。
 
-そこで JSONC を提案します。
-JSONC は JSON に準拠して、 Class 名を格納したフォーマットです。
+そこで JSONHC を提案します。
+JSONHC は JSON に準拠して、 Class 名を格納したフォーマットです。
 
 
 ```ts
@@ -23,16 +23,16 @@ JSONC は JSON に準拠して、 Class 名を格納したフォーマットで�
 ## 使用例
 
 
-jsonc.encode, jsonc.decode を使用する方法
+jsonhc.encode, jsonhc.decode を使用する方法
 
 ```ts
-let jsonc = new Jsonc({  .... });
+let jsonhc = new jsonhc({  .... });
 
 // decode 
-let data = jsonc.decode( JSON.parse(jsoncString) )
+let data = jsonhc.decode( JSON.parse(jsonhcString) )
 
 // encode 
-let jsoncString = JSON.stringify( jsonc.encode(data) );
+let jsonhcString = JSON.stringify( jsonhc.encode(data) );
 
 ```
 
@@ -40,28 +40,28 @@ let jsoncString = JSON.stringify( jsonc.encode(data) );
 JSON.parse, JSON.stringify を使用する方法
 
 ```ts
-let jsonc = new Jsonc({  .... });
+let jsonhc = new jsonhc({  .... });
 
 // decode 
-let data = JSON.parse(jsoncString, jsonc.reviver);
+let data = JSON.parse(jsonhcString, jsonhc.reviver);
 
 // encode 
-let jsoncString = JSON.stringify(data, jsonc.replacer);
+let jsonhcString = JSON.stringify(data, jsonhc.replacer);
 
 ```
 
 
 
-jsonc.parse, jsonc.stringify を使用する方法
+jsonhc.parse, jsonhc.stringify を使用する方法
 
 ```ts
-let jsonc = new Jsonc({  .... });
+let jsonhc = new jsonhc({  .... });
 
 // decode 
-let data = jsonc.parse(jsoncString);
+let data = jsonhc.parse(jsonhcString);
 
 // encode 
-let jsoncString = jsonc.stringify(data);
+let jsonhcString = jsonhc.stringify(data);
 
 ```
 
@@ -117,7 +117,7 @@ replacer(key:null|string, value:any) => any
 
 ### parse
 
-JSONC形式の変数 を JSON 文字列 へ変換します
+JSONHC形式の変数 を JSON 文字列 へ変換します
 
 ```ts
 parse(value:string) => any
@@ -125,13 +125,13 @@ parse(value:string) => any
 | Argument       | Type            | Required | Description                                                  |
 | -------------- | --------------- | -------- | ------------------------------------------------------------ |
 | `value`        | `string`        | Yes      | JSON文字列                                                   |
-| **returns**    | `any`           |          | JSONC形式の変数                                              |
+| **returns**    | `any`           |          | JSONHC形式の変数                                             |
 
 
 
 ### stringify
 
-JSONC形式の変数 を JSON 文字列 へ変換します
+JSONHC形式の変数 を JSON 文字列 へ変換します
 
 ```ts
 stringify(value:any) => string
@@ -140,14 +140,14 @@ stringify(value:any) => string
 
 | Argument       | Type            | Required | Description                                                  |
 | -------------- | --------------- | -------- | ------------------------------------------------------------ |
-| `value`        | `any`           | Yes      | JSONC形式の変数                                              |
+| `value`        | `any`           | Yes      | JSONHC形式の変数                                             |
 | **returns**    | `string`        |          | JSON文字列                                                   |
 
 
 
 ### decode
 
-JavaScriptのプレーンな変数からJSONC形式の変数へデコードする
+JavaScriptのプレーンな変数からJSONHC形式の変数へデコードする
 
 ```ts
 decode(value:any) => any
@@ -156,7 +156,7 @@ decode(value:any) => any
 | Argument       | Type            | Required | Description                                                  |
 | -------------- | --------------- | -------- | ------------------------------------------------------------ |
 | `value`        | `any`           | Yes      | JavaScriptのプレーンな変数                                   |
-| **returns**    | `any`           |          | JSONC形式の変数                                              |
+| **returns**    | `any`           |          | JSONHC形式の変数                                             |
 
 
 
@@ -164,7 +164,7 @@ decode(value:any) => any
 
 ### encode
 
-JSONC形式の変数を JavaScriptのプレーンな変数にエンコードする
+JSONHC形式の変数を JavaScriptのプレーンな変数にエンコードする
 
 ```ts
 encode(value:any) => any
@@ -172,7 +172,7 @@ encode(value:any) => any
 
 | Argument       | Type            | Required | Description                                                  |
 | -------------- | --------------- | -------- | ------------------------------------------------------------ |
-| `value`        | `any`           | Yes      | JSONC形式の変数                                              |
+| `value`        | `any`           | Yes      | JSONHC形式の変数                                             |
 | **returns**    | `any`           |          | JavaScriptのプレーンな変数                                   |
 
 
@@ -183,7 +183,7 @@ encode(value:any) => any
 
 ## TClassmap
 
-TClassmap は jsonc 形式のデータと実際の JavaScript のデータとを相互変換するためのテーブルデータです。
+TClassmap は jsonhc 形式のデータと実際の JavaScript のデータとを相互変換するためのテーブルデータです。
 
 
 コンストラクタでの TClassmap の指定例
@@ -193,7 +193,7 @@ class ClassB extends Persistable {
 	public name = 'this is ClassB';
 }
 
-let jsonc = new Jsonc({
+let jsonhc = new jsonhc({
 
 	// TResolver 方式
 	'classA' : {
@@ -221,10 +221,10 @@ IPersistable インタフェースには 次のメソッドを備える必要が
 
 
 
-#### jsoncSerialize
+#### jsonhcSerialize
 
 ```ts
-jsoncSerialize() => any;
+jsonhcSerialize() => any;
 ```
 
 | Argument       | Type      | Required | Description                                                  |
@@ -234,10 +234,10 @@ jsoncSerialize() => any;
 
 
 
-#### jsoncUnserialize
+#### jsonhcUnserialize
 
 ```ts
-jsoncUnserialize(data:any) => void;
+jsonhcUnserialize(data:any) => void;
 ```
 
 
@@ -251,7 +251,7 @@ jsoncUnserialize(data:any) => void;
 
 ```ts
 obj = new MyPersistableClass();
-ooj.jsoncUnserialize(SerializedValue)
+ooj.jsonhcUnserialize(SerializedValue)
 ```
 
 

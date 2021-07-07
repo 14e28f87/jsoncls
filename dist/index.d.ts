@@ -1,7 +1,7 @@
 declare type TClassmap = {
     [_: string]: any;
 };
-export default class Jsonc {
+export default class jsonhc {
     classmap: TClassmap;
     key: string;
     /**

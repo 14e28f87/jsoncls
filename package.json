@@ -1,6 +1,6 @@
 {
   "name": "jsonhc",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "JSON that can hold classes",
   "main": "index.js",
   "repository": {
@@ -17,7 +17,7 @@
     "prepublishOnly": "npm run test && npm run build"
   },
   "author": "K.Tsuru",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "lodash-es": "^4.17.21"
   },
