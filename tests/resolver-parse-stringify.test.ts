@@ -1,9 +1,5 @@
 
-import Jsonc from '../src/index';
-//import { applyMixins } from '../src/applyMixins';
-
-import Jsonc_Persistable from '../src/Persistable';
-
+import { Jsonhc, JsonhcPersistable } from '../src/index';
 
 import * as _ from 'lodash-es';
 
@@ -11,16 +7,16 @@ class ClassA {
 	public name = 'this is ClassA';
 }
 
-class ClassB extends Jsonc_Persistable {
+class ClassB extends JsonhcPersistable {
 	public name = 'this is ClassB';
 }
 
 
-describe('Jsonc', ()=>{
+describe('jsonhc', ()=>{
 
 	test('parse', ()=>{
 
-		let jsonc = new Jsonc({
+		let jsonhc = new Jsonhc({
 			'classA' : {
 				test: ClassA,
 				serialize: (data:any)=>{
@@ -46,7 +42,7 @@ describe('Jsonc', ()=>{
 			},
 		});
 
-		let data = JSON.parse(str, jsonc.reviver);
+		let data = JSON.parse(str, jsonhc.reviver);
 
 		expect( data.name ).toBe('this is ClassA');
 		expect( data.child.name ).toBe('this is ClassB');
@@ -57,7 +53,7 @@ describe('Jsonc', ()=>{
 
 	test('stringify', ()=>{
 
-		let jsonc = new Jsonc({
+		let jsonhc = new Jsonhc({
 			'classA' : {
 				test: ClassA,
 				serialize: (data:any)=>{
@@ -78,13 +74,13 @@ describe('Jsonc', ()=>{
 		data = new ClassA();
 		(data as any).child = new ClassB();
 
-		let jsoncStr = JSON.stringify(data, jsonc.replacer);
+		let jsonhcStr = JSON.stringify(data, jsonhc.replacer);
 
-		let jsoncData = JSON.parse(jsoncStr);
-		expect( jsoncData.type ).toBe('classA');
-		expect( jsoncData.name ).toBe('this is ClassA');
-		expect( jsoncData.child.type ).toBe('classB');
-		expect( jsoncData.child.name ).toBe('this is ClassB');
+		let jsonhcData = JSON.parse(jsonhcStr);
+		expect( jsonhcData.type ).toBe('classA');
+		expect( jsonhcData.name ).toBe('this is ClassA');
+		expect( jsonhcData.child.type ).toBe('classB');
+		expect( jsonhcData.child.name ).toBe('this is ClassB');
 
 	});
 

@@ -1,4 +1,4 @@
-# JSONHC : JSON that can hold classes
+# JSONHC that can hold classes
 
 *Date オブジェクト を JSON にエンコードした。だけど、JSON デコードしたら 文字列になっていた*
 

@@ -1,7 +1,7 @@
 
-import IPersistable from './IPersistable';
+import { IJsonhcPersistable } from './IJsonhcPersistable';
 
-export default class Persistable implements IPersistable {
+export class JsonhcPersistable implements IJsonhcPersistable {
 
 	public jsonhcUnserialize(data: Object){
 		for(let [k, v] of Object.entries(data) ){

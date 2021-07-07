@@ -1,4 +1,4 @@
-export default interface IPersistable {
+export interface IJsonhcPersistable {
     jsonhcUnserialize: (data: any) => void;
     jsonhcSerialize: () => any;
 }
