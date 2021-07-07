@@ -15,6 +15,7 @@ type TClassmap = {
 	[_:string] : any;
 }
 
+
 export class Jsonhc {
 
 	public classmap : TClassmap = {};
@@ -123,8 +124,8 @@ export class Jsonhc {
 					// Resolver Object
 					const resolver = row as TResolver;
 
-					if( ( _.isFunction( resolver.test ) && resolver.test(value) ) 
-					 || ( value instanceof resolver.test ) ){
+					if( ( Jsonhc.isClass(resolver.test) && value instanceof resolver.test ) 
+					 || ( _.isFunction(resolver.test) && resolver.test(value) ) ){
 						 // match
 						if( _.isFunction( resolver.serialize ) ){
 							let newVars;
@@ -267,6 +268,24 @@ export class Jsonhc {
 	 */
 	static isResolver(c:any){
 		return  _.isPlainObject(c) && ( _.isFunction(c.test) ||  _.isFunction(c.serialize) ||  _.isFunction(c.unserialize) );
+	}
+
+
+	/**
+	 * Class か調べる
+	 *
+	 *	@param	c	調べる対象の値
+	 *	@return		Class であれば true を返し、そうでなければ false を返します。
+	 */
+	static isClass(c:any){
+		if(typeof(c) === 'function' && c.prototype){
+			try{
+				c.arguments && c.caller;
+			}catch(e) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 

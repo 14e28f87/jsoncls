@@ -1,5 +1,5 @@
 
-import { Jsonhc, JsonhcPersistable } from '../src/index';
+import { Jsonhc, JsonhcPersistable } from '../dist/index.js';
 
 import * as _ from 'lodash-es';
 
@@ -18,7 +18,7 @@ describe('jsonhc', ()=>{
 
 		let jsonhc = new Jsonhc({
 			'classA' : {
-				test: ClassA,
+				test: (c:any)=>{ return c instanceof ClassA },
 				serialize: (data:any)=>{
 					return _.toPlainObject(data);
 				},
@@ -53,7 +53,7 @@ describe('jsonhc', ()=>{
 
 		let jsonhc = new Jsonhc({
 			'classA' : {
-				test: ClassA,
+				test: (c:any)=>{ return c instanceof ClassA },
 				serialize: (data:any)=>{
 					return _.toPlainObject(data);
 				},

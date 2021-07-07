@@ -20,17 +20,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Jsonhc = void 0;
-var _ = __importStar(require("lodash-es"));
-var Jsonhc = /** @class */ (function () {
+const _ = __importStar(require("lodash-es"));
+class Jsonhc {
     /**
      * コンストラクタ
      *
      *	@oaram		マップするクラスのリスト
      *
      */
-    function Jsonhc(classmap) {
-        var _this = this;
-        if (classmap === void 0) { classmap = {}; }
+    constructor(classmap = {}) {
         this.classmap = {};
         this.key = 'type'; // 'type' or '$'
         /**
@@ -41,21 +39,21 @@ var Jsonhc = /** @class */ (function () {
          *
          *
          */
-        this.reviver = function (key, value) {
+        this.reviver = (key, value) => {
             // console.log("   reviver - %o %o ", key, value );
             if (_.isObject(value)) {
-                if (!_.isUndefined(value[_this.key])) {
-                    var id = value[_this.key];
-                    var row = _this.classmap[id];
+                if (!_.isUndefined(value[this.key])) {
+                    const id = value[this.key];
+                    let row = this.classmap[id];
                     if (row) {
                         if (Jsonhc.isResolver(row)) {
                             // Resolver Object
-                            var resolver = row;
+                            const resolver = row;
                             // match
                             if (_.isFunction(resolver.unserialize)) {
-                                var newVars = void 0;
+                                let newVars;
                                 newVars = resolver.unserialize(value);
-                                delete (newVars[_this.key]);
+                                delete (newVars[this.key]);
                                 value = newVars;
                             }
                             else {
@@ -65,15 +63,15 @@ var Jsonhc = /** @class */ (function () {
                         else {
                             // IPersistable Class
                             //	const persistable = row as IPersistable;
-                            var persistable = row;
-                            var newVars = void 0;
+                            const persistable = row;
+                            let newVars;
                             newVars = new persistable();
                             if (_.isFunction(newVars.jsonhcUnserialize)) {
                                 newVars.jsonhcUnserialize(value);
                             }
                             else {
                             }
-                            delete (newVars[_this.key]);
+                            delete (newVars[this.key]);
                             value = newVars;
                         }
                     }
@@ -92,30 +90,29 @@ var Jsonhc = /** @class */ (function () {
          *
          *
          */
-        this.replacer = function (key, value) {
+        this.replacer = (key, value) => {
             // console.log("   replacer - %o %o ", key, value );
             if (_.isObject(value) && !_.isPlainObject(value) && !_.isArray(value) && !_.isRegExp(value)) {
-                var flag = false;
-                for (var _i = 0, _a = Object.entries(_this.classmap); _i < _a.length; _i++) {
-                    var _b = _a[_i], id = _b[0], row = _b[1];
+                let flag = false;
+                for (const [id, row] of Object.entries(this.classmap)) {
                     if (Jsonhc.isResolver(row)) {
                         // Resolver Object
-                        var resolver = row;
-                        if ((_.isFunction(resolver.test) && resolver.test(value))
-                            || (value instanceof resolver.test)) {
+                        const resolver = row;
+                        if ((Jsonhc.isClass(resolver.test) && value instanceof resolver.test)
+                            || (_.isFunction(resolver.test) && resolver.test(value))) {
                             // match
                             if (_.isFunction(resolver.serialize)) {
-                                var newVars = void 0;
+                                let newVars;
                                 newVars = resolver.serialize(value);
-                                newVars[_this.key] = id;
+                                newVars[this.key] = id;
                                 value = newVars;
                                 flag = true;
                                 break;
                             }
                             else {
-                                var newVars = void 0;
+                                let newVars;
                                 newVars = Object.assign({}, value); // convert to plain object
-                                newVars[_this.key] = id;
+                                newVars[this.key] = id;
                                 value = newVars;
                                 flag = true;
                                 break;
@@ -125,13 +122,13 @@ var Jsonhc = /** @class */ (function () {
                     else {
                         // IPersistable Class
                         //const persistable = row as IPersistable;
-                        var persistable = row;
+                        const persistable = row;
                         if (value instanceof persistable) {
                             //if( value instanceof persistable ){
                             if (_.isFunction(value.jsonhcSerialize)) {
-                                var newVars = void 0;
+                                let newVars;
                                 newVars = value.jsonhcSerialize();
-                                newVars[_this.key] = id;
+                                newVars[this.key] = id;
                                 value = newVars;
                             }
                             flag = true;
@@ -140,7 +137,7 @@ var Jsonhc = /** @class */ (function () {
                     }
                 }
                 if (!flag) {
-                    var classname = value.constructor.name;
+                    const classname = value.constructor.name;
                     console.error("Undefined class mapping %o %o", key, value);
                     //throw new Error("Undefined class mapping '" + classname + "'. ");
                 }
@@ -155,8 +152,8 @@ var Jsonhc = /** @class */ (function () {
          *	@param	value	JSON文字列
          *	@return			JSONC形式の変数
          */
-        this.parse = function (value) {
-            return JSON.parse(value, _this.reviver);
+        this.parse = (value) => {
+            return JSON.parse(value, this.reviver);
         };
         /**
          *  JSONC形式の変数 を JSON 文字列 へ変換します
@@ -166,8 +163,8 @@ var Jsonhc = /** @class */ (function () {
          *	@param	value	JSONC形式の変数
          *	@return			JSON文字列
          */
-        this.stringify = function (value) {
-            return JSON.stringify(value, _this.replacer);
+        this.stringify = (value) => {
+            return JSON.stringify(value, this.replacer);
         };
         /**
          *  JavaScriptのプレーンな変数からJSONC形式の変数へデコードする
@@ -175,15 +172,14 @@ var Jsonhc = /** @class */ (function () {
          *	@param	value	JavaScriptのプレーンな変数
          *	@return			JSONC形式の変数
          */
-        this.decode = function (value) {
-            return _this._decode(null, value, _this.reviver);
+        this.decode = (value) => {
+            return this._decode(null, value, this.reviver);
         };
-        this._decode = function (key, value, reviver) {
+        this._decode = (key, value, reviver) => {
             value = _.clone(value);
             if (_.isObject(value)) { // Array or Object
-                for (var _i = 0, _a = Object.entries(value); _i < _a.length; _i++) {
-                    var _b = _a[_i], k = _b[0], v = _b[1];
-                    value[k] = _this._decode(k, v, reviver);
+                for (const [k, v] of Object.entries(value)) {
+                    value[k] = this._decode(k, v, reviver);
                 }
             }
             value = reviver(key, value);
@@ -195,16 +191,15 @@ var Jsonhc = /** @class */ (function () {
          *	@param	value	JSONC形式の変数
          *	@return			JavaScriptのプレーンな変数
          */
-        this.encode = function (value) {
-            return _this._encode(null, value, _this.replacer);
+        this.encode = (value) => {
+            return this._encode(null, value, this.replacer);
         };
-        this._encode = function (key, value, replacer) {
+        this._encode = (key, value, replacer) => {
             value = _.clone(value);
             value = replacer(key, value);
             if (_.isObject(value)) { // Array or Object
-                for (var _i = 0, _a = Object.entries(value); _i < _a.length; _i++) {
-                    var _b = _a[_i], k = _b[0], v = _b[1];
-                    value[k] = _this._encode(k, v, replacer);
+                for (const [k, v] of Object.entries(value)) {
+                    value[k] = this._encode(k, v, replacer);
                 }
             }
             return value;
@@ -217,9 +212,25 @@ var Jsonhc = /** @class */ (function () {
      *	@param	c	調べる対象の値
      *	@return		TResolver であれば true を返し、そうでなければ false を返します。
      */
-    Jsonhc.isResolver = function (c) {
+    static isResolver(c) {
         return _.isPlainObject(c) && (_.isFunction(c.test) || _.isFunction(c.serialize) || _.isFunction(c.unserialize));
-    };
-    return Jsonhc;
-}());
+    }
+    /**
+     * Class か調べる
+     *
+     *	@param	c	調べる対象の値
+     *	@return		Class であれば true を返し、そうでなければ false を返します。
+     */
+    static isClass(c) {
+        if (typeof (c) === 'function' && c.prototype) {
+            try {
+                c.arguments && c.caller;
+            }
+            catch (e) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
 exports.Jsonhc = Jsonhc;

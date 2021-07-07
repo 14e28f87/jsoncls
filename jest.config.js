@@ -60,7 +60,7 @@ module.exports = {
   // A set of global variables that need to be available in all test environments
   // globals: {},
   "globals": {
-    "window": true
+    "window": true,
   },
 
   // An array of directory names to be searched recursively up from the requiring module's location

@@ -1,5 +1,5 @@
 
-import { Jsonhc, JsonhcPersistable } from '../src/index';
+import { Jsonhc, JsonhcPersistable } from '../dist/index.js';
 
 class ClassA extends JsonhcPersistable {
 	public name = 'this is ClassA';

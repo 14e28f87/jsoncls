@@ -70,5 +70,12 @@ export declare class Jsonhc {
      *	@return		TResolver であれば true を返し、そうでなければ false を返します。
      */
     static isResolver(c: any): boolean;
+    /**
+     * Class か調べる
+     *
+     *	@param	c	調べる対象の値
+     *	@return		Class であれば true を返し、そうでなければ false を返します。
+     */
+    static isClass(c: any): boolean;
 }
 export {};
