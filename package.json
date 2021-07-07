@@ -3,12 +3,13 @@
   "version": "0.0.2",
   "description": "JSON that can hold classes",
   "main": "index.js",
+  "module": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/14e28f87/jsonhc.git"
   },
   "files": [
-    "build"
+    "dist"
   ],
   "scripts": {
     "build": "tsc",
