@@ -1,0 +1,32 @@
+{
+  "name": "jsonhc",
+  "version": "0.0.1",
+  "description": "JSON that can hold classes",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/14e28f87/jsonhc.git"
+  },
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf ./dist/*",
+    "test": "jest",
+    "prepublishOnly": "npm run test && npm run build"
+  },
+  "author": "K.Tsuru",
+  "license": "ISC",
+  "dependencies": {
+    "lodash-es": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.23",
+    "@types/lodash-es": "^4.17.4",
+    "jest": "^27.0.6",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^27.0.3",
+    "typescript": "^4.3.5"
+  }
+}
