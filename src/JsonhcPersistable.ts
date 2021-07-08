@@ -1,12 +1,12 @@
 
+import * as _ from 'lodash-es';
+
 import { IJsonhcPersistable } from './IJsonhcPersistable';
 
 export class JsonhcPersistable implements IJsonhcPersistable {
 
 	public jsonhcUnserialize(data: Object){
-		for(let [k, v] of Object.entries(data) ){
-			(this as any)[k] = v;
-		}
+		_.merge(this, data);
 	}
 
 	public jsonhcSerialize(){
