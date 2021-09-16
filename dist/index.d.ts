@@ -1,3 +1,3 @@
-export { Jsonhc } from './Jsonhc.js';
-export { IJsonhcPersistable } from './IJsonhcPersistable.js';
-export { JsonhcPersistable } from './JsonhcPersistable.js';
+export { Jsoncls } from './Jsoncls';
+export { IJsonclsPersistable } from './IJsonclsPersistable';
+export { JsonclsPersistable } from './JsonclsPersistable';

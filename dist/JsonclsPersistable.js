@@ -19,14 +19,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.JsonhcPersistable = void 0;
+exports.JsonclsPersistable = void 0;
 const _ = __importStar(require("lodash-es"));
-class JsonhcPersistable {
-    jsonhcUnserialize(data) {
+class JsonclsPersistable {
+    jsonclsUnserialize(data) {
         _.merge(this, data);
     }
-    jsonhcSerialize() {
+    jsonclsSerialize() {
         return this;
     }
 }
-exports.JsonhcPersistable = JsonhcPersistable;
+exports.JsonclsPersistable = JsonclsPersistable;

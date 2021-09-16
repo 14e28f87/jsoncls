@@ -1,25 +1,25 @@
 
-import { Jsonhc, JsonhcPersistable } from '../dist/index.js';
+import { Jsoncls, JsonclsPersistable } from '../dist/index.js';
 
-class ClassA extends JsonhcPersistable {
+class ClassA extends JsonclsPersistable {
 	public name = 'this is ClassA';
 }
 
-class ClassB extends JsonhcPersistable {
+class ClassB extends JsonclsPersistable {
 	public name = 'this is ClassB';
 }
 
 
-describe('jsonhc', ()=>{
+describe('jsoncls', ()=>{
 
 	test('decode', ()=>{
 
-		let jsonhc = new Jsonhc({
+		let jsoncls = new Jsoncls({
 			'classA' : ClassA,
 			'classB' : ClassB,
 		});
 
-		let data = jsonhc.decode({
+		let data = jsoncls.decode({
 			'type': 'classA',
 			'child': {
 				'type': 'classB',
@@ -35,7 +35,7 @@ describe('jsonhc', ()=>{
 
 	test('encode', ()=>{
 
-		let jsonhc = new Jsonhc({
+		let jsoncls = new Jsoncls({
 			'classA' : ClassA,
 			'classB' : ClassB,
 		});
@@ -44,12 +44,12 @@ describe('jsonhc', ()=>{
 		data = new ClassA();
 		(data as any).child = new ClassB();
 
-		let jsonhcData = jsonhc.encode(data);
+		let jsonclsData = jsoncls.encode(data);
 
-		expect( jsonhcData.type ).toBe('classA');
-		expect( jsonhcData.name ).toBe('this is ClassA');
-		expect( jsonhcData.child.type ).toBe('classB');
-		expect( jsonhcData.child.name ).toBe('this is ClassB');
+		expect( jsonclsData.type ).toBe('classA');
+		expect( jsonclsData.name ).toBe('this is ClassA');
+		expect( jsonclsData.child.type ).toBe('classB');
+		expect( jsonclsData.child.name ).toBe('this is ClassB');
 
 	});
 

@@ -19,9 +19,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Jsonhc = void 0;
+exports.Jsoncls = void 0;
 const _ = __importStar(require("lodash-es"));
-class Jsonhc {
+class Jsoncls {
     /**
      * コンストラクタ
      *
@@ -46,7 +46,7 @@ class Jsonhc {
                     const id = value[this.key];
                     let row = this.classmap[id];
                     if (row) {
-                        if (Jsonhc.isResolver(row)) {
+                        if (Jsoncls.isResolver(row)) {
                             // Resolver Object
                             const resolver = row;
                             // match
@@ -66,8 +66,8 @@ class Jsonhc {
                             const persistable = row;
                             let newVars;
                             newVars = new persistable();
-                            if (_.isFunction(newVars.jsonhcUnserialize)) {
-                                newVars.jsonhcUnserialize(value);
+                            if (_.isFunction(newVars.jsonclsUnserialize)) {
+                                newVars.jsonclsUnserialize(value);
                             }
                             else {
                             }
@@ -95,10 +95,10 @@ class Jsonhc {
             if (_.isObject(value) && !_.isPlainObject(value) && !_.isArray(value) && !_.isRegExp(value)) {
                 let flag = false;
                 for (const [id, row] of Object.entries(this.classmap)) {
-                    if (Jsonhc.isResolver(row)) {
+                    if (Jsoncls.isResolver(row)) {
                         // Resolver Object
                         const resolver = row;
-                        if ((Jsonhc.isClass(resolver.test) && value instanceof resolver.test)
+                        if ((Jsoncls.isClass(resolver.test) && value instanceof resolver.test)
                             || (_.isFunction(resolver.test) && resolver.test(value))) {
                             // match
                             if (_.isFunction(resolver.serialize)) {
@@ -125,9 +125,9 @@ class Jsonhc {
                         const persistable = row;
                         if (value instanceof persistable) {
                             //if( value instanceof persistable ){
-                            if (_.isFunction(value.jsonhcSerialize)) {
+                            if (_.isFunction(value.jsonclsSerialize)) {
                                 let newVars;
-                                newVars = value.jsonhcSerialize();
+                                newVars = value.jsonclsSerialize();
                                 newVars[this.key] = id;
                                 value = newVars;
                             }
@@ -145,32 +145,32 @@ class Jsonhc {
             return value;
         };
         /**
-         *  JSON 文字列 を JSONC形式の変数 へ変換します
+         *  JSON 文字列 を JsonCls形式の変数 へ変換します
          *
          *	非推奨
          *
          *	@param	value	JSON文字列
-         *	@return			JSONC形式の変数
+         *	@return			JsonCls形式の変数
          */
         this.parse = (value) => {
             return JSON.parse(value, this.reviver);
         };
         /**
-         *  JSONC形式の変数 を JSON 文字列 へ変換します
+         *  JsonCls形式の変数 を JSON 文字列 へ変換します
          *
          *	非推奨
          *
-         *	@param	value	JSONC形式の変数
+         *	@param	value	JsonCls形式の変数
          *	@return			JSON文字列
          */
         this.stringify = (value) => {
             return JSON.stringify(value, this.replacer);
         };
         /**
-         *  JavaScriptのプレーンな変数からJSONC形式の変数へデコードする
+         *  JavaScriptのプレーンな変数からJsonCls形式の変数へデコードする
          *
          *	@param	value	JavaScriptのプレーンな変数
-         *	@return			JSONC形式の変数
+         *	@return			JsonCls形式の変数
          */
         this.decode = (value) => {
             return this._decode(null, value, this.reviver);
@@ -186,9 +186,9 @@ class Jsonhc {
             return value;
         };
         /**
-         * JSONC形式の変数を JavaScriptのプレーンな変数にエンコードする
+         * JsonCls形式の変数を JavaScriptのプレーンな変数にエンコードする
          *
-         *	@param	value	JSONC形式の変数
+         *	@param	value	JsonCls形式の変数
          *	@return			JavaScriptのプレーンな変数
          */
         this.encode = (value) => {
@@ -233,4 +233,4 @@ class Jsonhc {
         return false;
     }
 }
-exports.Jsonhc = Jsonhc;
+exports.Jsoncls = Jsoncls;

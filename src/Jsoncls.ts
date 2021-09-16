@@ -1,7 +1,7 @@
 
 import * as _ from 'lodash-es';
 
-import { IJsonhcPersistable } from './IJsonhcPersistable';
+import { IJsonclsPersistable } from './IJsonclsPersistable';
 
 
 type TResolver = {
@@ -16,7 +16,7 @@ type TClassmap = {
 }
 
 
-export class Jsonhc {
+export class Jsoncls {
 
 	public classmap : TClassmap = {};
 
@@ -53,7 +53,7 @@ export class Jsonhc {
 				let row = this.classmap[ id ];
 				if( row ){
 
-					if( Jsonhc.isResolver(row) ){
+					if( Jsoncls.isResolver(row) ){
 						// Resolver Object
 						const resolver = row as TResolver;
 
@@ -78,8 +78,8 @@ export class Jsonhc {
 
 						let newVars;
 						newVars = new persistable();
-						if(_.isFunction(newVars.jsonhcUnserialize) ){
-							newVars.jsonhcUnserialize(value);
+						if(_.isFunction(newVars.jsonclsUnserialize) ){
+							newVars.jsonclsUnserialize(value);
 						}else{
 
 						}
@@ -120,11 +120,11 @@ export class Jsonhc {
 			let flag = false;
 			for(const [id, row] of Object.entries(this.classmap) ){
 
-				if( Jsonhc.isResolver(row) ){
+				if( Jsoncls.isResolver(row) ){
 					// Resolver Object
 					const resolver = row as TResolver;
 
-					if( ( Jsonhc.isClass(resolver.test) && value instanceof resolver.test ) 
+					if( ( Jsoncls.isClass(resolver.test) && value instanceof resolver.test ) 
 					 || ( _.isFunction(resolver.test) && resolver.test(value) ) ){
 						 // match
 						if( _.isFunction( resolver.serialize ) ){
@@ -152,9 +152,9 @@ export class Jsonhc {
 					if( value instanceof persistable ){
 
 						//if( value instanceof persistable ){
-						if( _.isFunction((value as any).jsonhcSerialize) ){
+						if( _.isFunction((value as any).jsonclsSerialize) ){
 							let newVars;
-							newVars = (value as any).jsonhcSerialize();
+							newVars = (value as any).jsonclsSerialize();
 							newVars[ this.key ] = id;
 							value = newVars;
 						}
@@ -180,23 +180,23 @@ export class Jsonhc {
 
 
 	/**
-	 *  JSON 文字列 を JSONC形式の変数 へ変換します
+	 *  JSON 文字列 を JsonCls形式の変数 へ変換します
 	 *
 	 *	非推奨  
 	 *
 	 *	@param	value	JSON文字列
-	 *	@return			JSONC形式の変数
+	 *	@return			JsonCls形式の変数
 	 */
 	public parse = (value:string)=>{
 		return JSON.parse(value, this.reviver);
 	}
 
 	/**
-	 *  JSONC形式の変数 を JSON 文字列 へ変換します
+	 *  JsonCls形式の変数 を JSON 文字列 へ変換します
 	 *
 	 *	非推奨  
 	 *
-	 *	@param	value	JSONC形式の変数
+	 *	@param	value	JsonCls形式の変数
 	 *	@return			JSON文字列
 	 */
 	public stringify = (value:any)=>{
@@ -204,10 +204,10 @@ export class Jsonhc {
 	}
 
 	/**
-	 *  JavaScriptのプレーンな変数からJSONC形式の変数へデコードする
+	 *  JavaScriptのプレーンな変数からJsonCls形式の変数へデコードする
 	 *
 	 *	@param	value	JavaScriptのプレーンな変数
-	 *	@return			JSONC形式の変数
+	 *	@return			JsonCls形式の変数
 	 */
 	public decode = (value:any)=>{
 
@@ -232,9 +232,9 @@ export class Jsonhc {
 	}
 
 	/**
-	 * JSONC形式の変数を JavaScriptのプレーンな変数にエンコードする
+	 * JsonCls形式の変数を JavaScriptのプレーンな変数にエンコードする
 	 *
-	 *	@param	value	JSONC形式の変数
+	 *	@param	value	JsonCls形式の変数
 	 *	@return			JavaScriptのプレーンな変数
 	 */
 	public encode = (value : any)=>{
