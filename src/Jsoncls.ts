@@ -62,7 +62,7 @@ export class Jsoncls {
 
 							let newVars;
 							newVars = resolver.unserialize( value );
-							delete( newVars[ this.key ] );
+						//	delete( newVars[ this.key ] );
 
 							value = newVars;
 
