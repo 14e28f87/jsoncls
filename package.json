@@ -1,6 +1,6 @@
 {
   "name": "jsoncls",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "JsonCls is JSON that can hold classes",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
