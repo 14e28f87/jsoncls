@@ -62,7 +62,7 @@ export class Jsoncls {
 
 							let newVars;
 							newVars = resolver.unserialize( value );
-						//	delete( newVars[ this.key ] );
+							delete( newVars[ this.key ] );
 
 							value = newVars;
 
@@ -79,6 +79,7 @@ export class Jsoncls {
 						let newVars;
 						newVars = new persistable();
 						if(_.isFunction(newVars.jsonclsUnserialize) ){
+							delete( (value as any)[ this.key ] );
 							newVars.jsonclsUnserialize(value);
 						}else{
 
