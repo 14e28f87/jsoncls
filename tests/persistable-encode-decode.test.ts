@@ -1,25 +1,25 @@
 
-import { Jsoncls, JsonclsPersistable } from '../dist/index.js';
+import { Xjson, XjsonPersistable } from '../dist/index.js';
 
-class ClassA extends JsonclsPersistable {
+class ClassA extends XjsonPersistable {
 	public name = 'this is ClassA';
 }
 
-class ClassB extends JsonclsPersistable {
+class ClassB extends XjsonPersistable {
 	public name = 'this is ClassB';
 }
 
 
-describe('jsoncls', ()=>{
+describe('xjson', ()=>{
 
 	test('decode', ()=>{
 
-		let jsoncls = new Jsoncls({
+		let xjson = new Xjson({
 			'classA' : ClassA,
 			'classB' : ClassB,
 		});
 
-		let data = jsoncls.decode({
+		let data = xjson.decode({
 			'type': 'classA',
 			'child': {
 				'type': 'classB',
@@ -35,7 +35,7 @@ describe('jsoncls', ()=>{
 
 	test('encode', ()=>{
 
-		let jsoncls = new Jsoncls({
+		let xjson = new Xjson({
 			'classA' : ClassA,
 			'classB' : ClassB,
 		});
@@ -44,12 +44,12 @@ describe('jsoncls', ()=>{
 		data = new ClassA();
 		(data as any).child = new ClassB();
 
-		let jsonclsData = jsoncls.encode(data);
+		let xjsonData = xjson.encode(data);
 
-		expect( jsonclsData.type ).toBe('classA');
-		expect( jsonclsData.name ).toBe('this is ClassA');
-		expect( jsonclsData.child.type ).toBe('classB');
-		expect( jsonclsData.child.name ).toBe('this is ClassB');
+		expect( xjsonData.type ).toBe('classA');
+		expect( xjsonData.name ).toBe('this is ClassA');
+		expect( xjsonData.child.type ).toBe('classB');
+		expect( xjsonData.child.name ).toBe('this is ClassB');
 
 	});
 

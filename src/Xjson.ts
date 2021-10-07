@@ -1,7 +1,7 @@
 
 import * as _ from 'lodash-es';
 
-import { IJsonclsPersistable } from './IJsonclsPersistable';
+import { IXjsonPersistable } from './IXjsonPersistable';
 
 
 type TResolver = {
@@ -16,7 +16,7 @@ type TClassmap = {
 }
 
 
-export class Jsoncls {
+export class Xjson {
 
 	public classmap : TClassmap = {};
 
@@ -53,7 +53,7 @@ export class Jsoncls {
 				let row = this.classmap[ id ];
 				if( row ){
 
-					if( Jsoncls.isResolver(row) ){
+					if( Xjson.isResolver(row) ){
 						// Resolver Object
 						const resolver = row as TResolver;
 
@@ -78,9 +78,9 @@ export class Jsoncls {
 
 						let newVars;
 						newVars = new persistable();
-						if(_.isFunction(newVars.jsonclsUnserialize) ){
+						if(_.isFunction(newVars.xjsonUnserialize) ){
 							delete( (value as any)[ this.key ] );
-							newVars.jsonclsUnserialize(value);
+							newVars.xjsonUnserialize(value);
 						}else{
 
 						}
@@ -121,11 +121,11 @@ export class Jsoncls {
 			let flag = false;
 			for(const [id, row] of Object.entries(this.classmap) ){
 
-				if( Jsoncls.isResolver(row) ){
+				if( Xjson.isResolver(row) ){
 					// Resolver Object
 					const resolver = row as TResolver;
 
-					if( ( Jsoncls.isClass(resolver.test) && value instanceof resolver.test ) 
+					if( ( Xjson.isClass(resolver.test) && value instanceof resolver.test ) 
 					 || ( _.isFunction(resolver.test) && resolver.test(value) ) ){
 						 // match
 						if( _.isFunction( resolver.serialize ) ){
@@ -153,9 +153,9 @@ export class Jsoncls {
 					if( value instanceof persistable ){
 
 						//if( value instanceof persistable ){
-						if( _.isFunction((value as any).jsonclsSerialize) ){
+						if( _.isFunction((value as any).xjsonSerialize) ){
 							let newVars;
-							newVars = (value as any).jsonclsSerialize();
+							newVars = (value as any).xjsonSerialize();
 							newVars[ this.key ] = id;
 							value = newVars;
 						}

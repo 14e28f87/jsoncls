@@ -1,5 +1,5 @@
 
-import { Jsoncls, JsonclsPersistable } from '../dist/index.js';
+import { Xjson, XjsonPersistable } from '../dist/index.js';
 
 import * as _ from 'lodash-es';
 
@@ -7,16 +7,16 @@ class ClassA {
 	public name = 'this is ClassA';
 }
 
-class ClassB extends JsonclsPersistable {
+class ClassB extends XjsonPersistable {
 	public name = 'this is ClassB';
 }
 
 
-describe('jsoncls', ()=>{
+describe('xjson', ()=>{
 
 	test('parse', ()=>{
 
-		let jsoncls = new Jsoncls({
+		let xjson = new Xjson({
 			'classA' : {
 				test: (c:any)=>{ return c instanceof ClassA },
 				serialize: (data:any)=>{
@@ -42,7 +42,7 @@ describe('jsoncls', ()=>{
 			},
 		});
 
-		let data = JSON.parse(str, jsoncls.reviver);
+		let data = JSON.parse(str, xjson.reviver);
 
 		expect( data.name ).toBe('this is ClassA');
 		expect( data.child.name ).toBe('this is ClassB');
@@ -53,7 +53,7 @@ describe('jsoncls', ()=>{
 
 	test('stringify', ()=>{
 
-		let jsoncls = new Jsoncls({
+		let xjson = new Xjson({
 			'classA' : {
 				test: (c:any)=>{ return c instanceof ClassA },
 				serialize: (data:any)=>{
@@ -74,13 +74,13 @@ describe('jsoncls', ()=>{
 		data = new ClassA();
 		(data as any).child = new ClassB();
 
-		let jsonclsStr = JSON.stringify(data, jsoncls.replacer);
+		let xjsonStr = JSON.stringify(data, xjson.replacer);
 
-		let jsonclsData = JSON.parse(jsonclsStr);
-		expect( jsonclsData.type ).toBe('classA');
-		expect( jsonclsData.name ).toBe('this is ClassA');
-		expect( jsonclsData.child.type ).toBe('classB');
-		expect( jsonclsData.child.name ).toBe('this is ClassB');
+		let xjsonData = JSON.parse(xjsonStr);
+		expect( xjsonData.type ).toBe('classA');
+		expect( xjsonData.name ).toBe('this is ClassA');
+		expect( xjsonData.child.type ).toBe('classB');
+		expect( xjsonData.child.name ).toBe('this is ClassB');
 
 	});
 
