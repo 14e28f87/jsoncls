@@ -1,6 +1,6 @@
 {
-  "name": "jsoncls",
-  "version": "0.0.3",
+  "name": "xjson",
+  "version": "0.0.4",
   "description": "XJSON is JSON that can hold classes",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
