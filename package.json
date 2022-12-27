@@ -1,7 +1,8 @@
 {
   "name": "xjson",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "XJSON is JSON that can hold classes",
+  "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",

@@ -1,7 +1,7 @@
 
 import * as _ from 'lodash-es';
 
-import { IXjsonPersistable } from './IXjsonPersistable';
+import { IXjsonPersistable } from './IXjsonPersistable.js';
 
 export class XjsonPersistable implements IXjsonPersistable {
 
