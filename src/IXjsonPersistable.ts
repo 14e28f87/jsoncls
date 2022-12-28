@@ -1,7 +1,7 @@
 
 export interface IXjsonPersistable {
 
-	xjsonUnserialize : (data: any)=>void;
+//	static xjsonUnserialize : (data: Object)=>any;
 	xjsonSerialize : ()=>any;
 
 }

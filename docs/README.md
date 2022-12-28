@@ -5,10 +5,11 @@
 これは別に不思議なことではありません。JSON にすれば Class に関するデータは消えてしまうからです。
 
 そこで XJSON を提案します。
-XJSON は JSON に準拠して、 Class 名を格納した JSON上位互換のフォーマットです。
+Xjson は JSON に準拠して、 Class 名を格納した JSON上位互換のフォーマットです。
 
 
 ```ts
+// XJSON format (Plain object)
 {
     "type": "MyClass",
     "apple": "pie",
@@ -18,6 +19,8 @@ XJSON は JSON に準拠して、 Class 名を格納した JSON上位互換の�
 
 大きな特徴は `'type': 'MyClass'` のようにクラスの情報を格納します。
 これにより、エンコード・デコードしたときに適切にクラスを復元できるようになります。
+
+<img src="overview.png" />
 
 
 ## 使用例
@@ -64,7 +67,6 @@ let data = xjson.parse(xjsonString);
 let xjsonString = xjson.stringify(data);
 
 ```
-
 
 
 
@@ -234,10 +236,19 @@ xjsonSerialize() => any;
 
 
 
+**例**
+
+```ts
+	public xjsonSerialize(){
+		return this;
+	}
+```
+
+
 #### xjsonUnserialize
 
 ```ts
-xjsonUnserialize(data:any) => void;
+static xjsonUnserialize(data:Object) => any;
 ```
 
 
@@ -247,11 +258,14 @@ xjsonUnserialize(data:any) => void;
 
 
 
-デコード処理は、内部で以下のような処理を行っています。
+**例**
 
 ```ts
-obj = new MyPersistableClass();
-ooj.xjsonUnserialize(SerializedValue)
+	static xjsonUnserialize(data: Object){
+		const self = new this();
+		_.merge(self, data);
+		return self;
+	}
 ```
 
 
@@ -296,7 +310,7 @@ serialize(data:any) => any;
 
 
 
-#### serialize
+#### unserialize
 
 ```ts
 unserialize(data:any) => any;

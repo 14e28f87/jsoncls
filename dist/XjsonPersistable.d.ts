@@ -1,5 +1,7 @@
 import { IXjsonPersistable } from './IXjsonPersistable';
 export declare class XjsonPersistable implements IXjsonPersistable {
-    xjsonUnserialize(data: Object): void;
+    static xjsonUnserialize(data: {
+        [_: string]: any;
+    }): XjsonPersistable;
     xjsonSerialize(): this;
 }

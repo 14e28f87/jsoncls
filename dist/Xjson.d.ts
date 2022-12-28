@@ -1,4 +1,9 @@
-declare type TClassmap = {
+export type TResolver = {
+    test?: any;
+    serialize?: (v: any) => any;
+    unserialize?: (v: any) => any;
+};
+export type TClassmap = {
     [_: string]: any;
 };
 export declare class Xjson {
@@ -78,4 +83,3 @@ export declare class Xjson {
      */
     static isClass(c: any): boolean;
 }
-export {};

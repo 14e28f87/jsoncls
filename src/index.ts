@@ -1,4 +1,4 @@
 
-export { Xjson } from './Xjson.js';
-export { IXjsonPersistable } from './IXjsonPersistable.js';
-export { XjsonPersistable } from './XjsonPersistable.js';
+export { Xjson, TResolver, TClassmap } from './Xjson';
+export { IXjsonPersistable } from './IXjsonPersistable';
+export { XjsonPersistable } from './XjsonPersistable';

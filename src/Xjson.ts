@@ -1,17 +1,17 @@
 
 import * as _ from 'lodash-es';
 
-import { IXjsonPersistable } from './IXjsonPersistable.js';
+import { IXjsonPersistable } from './IXjsonPersistable';
 
 
-type TResolver = {
+export type TResolver = {
 	test? : any;
 	serialize? : (v:any)=> any;
 	unserialize? : (v:any)=> any;
 };
 
-type TClassmap = {
-//	[_:string] : IPersistable | TResolver;
+export type TClassmap = {
+//	[_:string] : IXjsonPersistable | TResolver;
 	[_:string] : any;
 }
 
@@ -77,13 +77,14 @@ export class Xjson {
 						const persistable = row as any;
 
 						let newVars;
-						newVars = new persistable();
-						if(_.isFunction(newVars.xjsonUnserialize) ){
-							delete( (value as any)[ this.key ] );
-							newVars.xjsonUnserialize(value);
+						if(_.isFunction(persistable.xjsonUnserialize) ){
+							newVars = persistable.xjsonUnserialize(value);
 						}else{
 
 						}
+
+
+
 					//	delete( newVars[ this.key ] );
 
 						value = newVars;

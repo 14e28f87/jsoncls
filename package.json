@@ -1,8 +1,7 @@
 {
   "name": "xjson",
-  "version": "0.0.5",
+  "version": "0.0.4",
   "description": "XJSON is JSON that can hold classes",
-  "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -17,8 +16,8 @@
     "build": "tsc",
     "watch": "tsc -w",
     "clean": "rimraf ./dist/*",
-    "test": "jest",
-    "prepublishOnly": "npm run test && npm run build"
+    "test": "jest --silent=false --verbose false",
+    "prepublishOnly": "npm run build && npm run test"
   },
   "author": "K.Tsuru",
   "license": "MIT",
@@ -28,9 +27,9 @@
   "devDependencies": {
     "@types/jest": "^26.0.24",
     "@types/lodash-es": "^4.17.5",
-    "jest": "^27.2.4",
+    "jest": "^27.5.1",
     "rimraf": "^3.0.2",
     "ts-jest": "^27.0.5",
-    "typescript": "^4.4.3"
+    "typescript": "^4.9.4"
   }
 }
