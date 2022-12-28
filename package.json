@@ -1,6 +1,6 @@
 {
   "name": "xjson",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "XJSON is JSON that can hold classes",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
